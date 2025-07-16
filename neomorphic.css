@@ -780,31 +780,52 @@
   transform-origin: left center;
 }
 
-/* Enhanced Active state - Modern X icon with rotation */
+/* Enhanced Active state - Ultra-visible X icon */
 .hamburger-icon.active {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .hamburger-icon.active span:nth-child(1) {
   transform: rotate(45deg);
-  top: 12px;
-  left: 3px;
-  width: 85%;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  transform-origin: center center;
+  top: 14px;
+  left: 0;
+  width: 100%;
+  background: #ffffff !important;
+  opacity: 1 !important;
+  height: 4px;
+  border-radius: 2px;
+  border: 2px solid #dc2626;
+  box-shadow:
+    0 0 20px rgba(220, 38, 38, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px #dc2626;
+  z-index: 15;
 }
 
 .hamburger-icon.active span:nth-child(2) {
-  width: 0%;
-  opacity: 0;
-  transform: translateX(20px);
+  opacity: 0 !important;
+  width: 0 !important;
+  transform: scale(0);
+  display: none;
 }
 
 .hamburger-icon.active span:nth-child(3) {
   transform: rotate(-45deg);
-  top: 12px;
-  left: 3px;
-  width: 85%;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  transform-origin: center center;
+  top: 14px;
+  left: 0;
+  width: 100%;
+  background: #ffffff !important;
+  opacity: 1 !important;
+  height: 4px;
+  border-radius: 2px;
+  border: 2px solid #dc2626;
+  box-shadow:
+    0 0 20px rgba(220, 38, 38, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px #dc2626;
+  z-index: 15;
 }
 
 /* Pulse effect on hover */
