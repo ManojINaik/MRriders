@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section Test</title>
+    <link href="neomorphic.css" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-color: #19c3e5;
+            --secondary-color: #f0f4f4;
+            --text-primary: #111718;
+            --text-secondary: #638288;
+            --background-color: #ffffff;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <section class="relative h-[600px] bg-cover bg-center hero-neomorphic-bg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDkqG1-QmL-1746ADw8hc0KW8RAIuW7OkHjnU2bKsLxFG6Kd5BHhZ2ttibSLk8kNrWfiU81Vy4YulRsyGWC_HnjwRVYcdtwnogdB4a1MvUHL4LwKfePEsqM_jTpSK2vO2lyreFEN-gq4lyBcjlOJcHLNAx_cl2xhA7NSCK18QsqL-tnELnRGtKLFEKhLdFf9OK18UM2oCeYCcPfNf2Kwr6FfxdeSdt1DUmNTW_uscYaRq31cJJJNUFWKou-wfwcaoplobspeZswAm_S");'>
+        <!-- Neomorphic Background Layers -->
+        <div class="absolute inset-0 hero-gradient-layer-1"></div>
+        <div class="absolute inset-0 hero-gradient-layer-2"></div>
+        <div class="absolute inset-0 hero-gradient-layer-3"></div>
+        <!-- Enhanced Overlay with Neomorphic Depth -->
+        <div class="absolute inset-0 hero-depth-overlay"></div>
+        <!-- Neomorphic Content Container -->
+        <div class="relative z-10 flex h-full flex-col items-center justify-center gap-6 text-center text-white px-4">
+            <div class="hero-content-container">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight">Experience the City Like Never Before</h1>
+                <p class="max-w-2xl text-lg md:text-xl font-light">Rent an electric scooter and explore the city with ease and style. Our scooters are eco-friendly, convenient, and fun.</p>
+                <button class="mt-4 flex min-w-[120px] items-center justify-center rounded-lg h-12 px-6 bg-[var(--primary-color)] text-[var(--text-primary)] text-lg font-bold tracking-wide hover:bg-opacity-90 transition-colors">
+                    <span>Rent Now</span>
+                </button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
