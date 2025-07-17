@@ -1,9 +1,9 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 mx-auto w-full md:max-w-[90%] md:top-4 bg-white/90 backdrop-blur-md transition-all duration-300 ease-out [transform:translateZ(0)] rounded-none md:rounded-xl shadow-xl hover:shadow-2xl group/navbar will-change-transform navbar-container"
+    class="fixed top-0 left-0 right-0 z-50 mx-auto w-full md:max-w-[90%] md:top-4 bg-white/90 backdrop-blur-md transition-all duration-300 ease-out [transform:translateZ(0)] rounded-full md:rounded-full shadow-xl hover:shadow-2xl group/navbar will-change-transform navbar-container"
     data-navbar>
     <div
-      class="flex items-center justify-between whitespace-nowrap border-b border-transparent px-4 md:px-6 h-16 transition-all duration-300 ease-out group-[.scrolled]/navbar:h-12 group-[.scrolled]/navbar:border-[var(--secondary-color)]/10">
+      class="flex items-center justify-between whitespace-nowrap border-b border-transparent px-4 md:px-8 h-16 transition-all duration-300 ease-out group-[.scrolled]/navbar:h-12 group-[.scrolled]/navbar:border-[var(--secondary-color)]/10">
       <div class="flex items-center gap-3 transition-all duration-300">
         <button class="md:hidden mobile-menu-button" id="mobile-menu-button" aria-label="Toggle mobile menu" @click="toggleMobileMenu">
           <div class="hamburger-icon" :class="{ 'active': isMobileMenuOpen }" id="hamburger-icon">
@@ -33,7 +33,7 @@
         href="https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20a%20bike%20or%20taxi%20service"
         target="_blank" 
         rel="noopener noreferrer"
-        class="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
+        class="hidden md:flex bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95 rounded-full"
         size="default"
       >
         <span>Book Now</span>
@@ -55,7 +55,7 @@
       href="https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20a%20bike%20or%20taxi%20service"
       target="_blank" 
       rel="noopener noreferrer"
-      class="mt-auto bg-primary hover:bg-primary/90 text-primary-foreground"
+      class="mt-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
       size="default"
     >
       <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 16 16">
@@ -160,7 +160,7 @@ onMounted(() => {
   padding: 12px;
   background-color: var(--primary-color);
   color: white;
-  border-radius: 8px;
+  border-radius: 9999px;
   font-weight: 700;
   text-align: center;
   transition: background-color 0.2s;
