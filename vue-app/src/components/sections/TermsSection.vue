@@ -43,7 +43,7 @@ const terms = ref([
   {
     iconPath: 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
     strong: 'Other small damages',
-    text: 'will be charged as per Murdeshwar Bike Rentals description',
+    text: 'will be charged as per Mr Riders description',
   },
   {
     iconPath: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',

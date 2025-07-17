@@ -42,17 +42,22 @@ import { Button } from '@/components/ui'
 <style scoped>
 .hero-responsive-bg {
   background-image: url('/images/hero.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 25%;
 }
 
 @media (max-width: 768px) {
   .hero-responsive-bg {
     background-image: url('/images/hero2 .jpeg');
+    background-position: center;
   }
 }
 
 @media (max-width: 480px) {
   .hero-responsive-bg {
     background-image: url('/images/hero3.jpeg');
+    background-position: center;
   }
 }
 </style> 
