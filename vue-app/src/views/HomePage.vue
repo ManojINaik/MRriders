@@ -10,6 +10,7 @@ import PickupPointsSection from '@/components/sections/PickupPointsSection.vue';
 import ContactSection from '@/components/sections/ContactSection.vue';
 import Footer from '@/components/layout/Footer.vue';
 import { useScrollReveal } from '@/composables/useScrollReveal';
+import { WhatsAppButton } from '@/components/ui';
 
 useScrollReveal();
 </script>
@@ -30,6 +31,12 @@ useScrollReveal();
       </main>
       <Footer />
     </div>
+    
+    <!-- WhatsApp Button for Website Development -->
+    <WhatsAppButton 
+      phone-number="7676445273"
+      message="Hi, I'm interested in getting a website developed."
+    />
   </div>
 </template>
 
