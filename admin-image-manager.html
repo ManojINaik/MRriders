@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Manager - Mr Riders Admin</title>
+    <link href="mrriders.png" rel="icon" type="image/png" />
+    <link href="neomorphic.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #f3f4f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background-color: #ffffff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-mint: #10d9c4;
+            --accent-navy: #0f172a;
+            --accent-lavender: #a78bfa;
+            --accent-blue: #1e40af;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+        }
+
+        .upload-zone {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .upload-zone.dragover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+            transform: scale(1.02);
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .image-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .upload-progress {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .image-info {
+            padding: 1rem;
+        }
+
+        .image-info h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-info p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #16a34a;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: #fed7aa;
+            color: #d97706;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 p-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="goBack()" class="p-2 hover:bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-900">Image Manager</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-500" id="imageCount">0 images</span>
+                    <button class="btn btn-primary" onclick="openUploadModal()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Upload Images
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Alert Container -->
+        <div id="alertContainer" class="p-6 pb-0"></div>
+
+        <!-- Content -->
+        <div class="p-6">
+            <!-- Search and Filter -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1">
+                        <input type="text" 
+                               class="search-box" 
+                               placeholder="Search images by filename, category, or tags..."
+                               id="searchInput">
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="category-tab active" onclick="filterByCategory('all')">All</button>
+                        <button class="category-tab" onclick="filterByCategory('bikes')">Bikes</button>
+                        <button class="category-tab" onclick="filterByCategory('taxi')">Taxi</button>
+                        <button class="category-tab" onclick="filterByCategory('hero')">Hero</button>
+                        <button class="category-tab" onclick="filterByCategory('testimonials')">Testimonials</button>
+                        <button class="category-tab" onclick="filterByCategory('other')">Other</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="imageGrid">
+                <!-- Images will be populated here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="text-center py-12 hidden">
+                <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">No images found</h3>
+                <p class="text-gray-500 mb-4">Upload your first image to get started</p>
+                <button class="btn btn-primary" onclick="openUploadModal()">Upload Images</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold">Upload Images</h3>
+                <button onclick="closeUploadModal()" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-zone" id="uploadZone">
+                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p class="text-lg font-medium text-gray-700 mb-2">Drop images here or click to browse</p>
+                <p class="text-sm text-gray-500">Support for JPG, PNG, GIF, WEBP files up to 10MB</p>
+            </div>
+
+            <!-- Upload Progress -->
+            <div id="uploadProgress" class="hidden">
+                <div class="upload-progress">
+                    <div class="upload-progress-bar" id="progressBar" style="width: 0%"></div>
+                </div>
+                <p class="text-sm text-gray-600 text-center" id="uploadStatus">Preparing upload...</p>
+            </div>
+
+            <!-- Category Selection -->
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                <select id="uploadCategory" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="other">Other</option>
+                    <option value="bikes">Bikes</option>
+                    <option value="taxi">Taxi</option>
+                    <option value="hero">Hero Images</option>
+                    <option value="testimonials">Testimonials</option>
+                </select>
+            </div>
+
+            <!-- Upload Button -->
+            <div class="mt-6 flex justify-end gap-4">
+                <button class="btn btn-secondary" onclick="closeUploadModal()">Cancel</button>
+                <button class="btn btn-primary" id="uploadButton" onclick="startUpload()" disabled>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Details Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold">Image Details</h3>
+                <button onclick="closeImageModal()" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="imageModalContent">
+                <!-- Image details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+
+    <script>
+        // Image Manager System
+        class ImageManager {
+            constructor() {
+                this.images = [];
+                this.currentFilter = 'all';
+                this.selectedFiles = [];
+                this.init();
+            }
+
+            init() {
+                this.loadImages();
+                this.setupEventListeners();
+                this.renderImages();
+            }
+
+            loadImages() {
+                // Load images from localStorage or use default images
+                const savedImages = localStorage.getItem('mrr_images');
+                if (savedImages) {
+                    this.images = JSON.parse(savedImages);
+                } else {
+                    this.loadDefaultImages();
+                }
+            }
+
+            loadDefaultImages() {
+                // Default images from the website
+                this.images = [
+                    {
+                        id: 1,
+                        filename: 'honda-new-dio.avif',
+                        url: 'images/honda-new-dio.avif',
+                        category: 'bikes',
+                        size: '156KB',
+                        dimensions: '800x600',
+                        uploadDate: '2024-01-15',
+                        tags: ['honda', 'dio', 'scooter', 'red']
+                    },
+                    {
+                        id: 2,
+                        filename: 'honda-activa-3g-black.webp',
+                        url: 'images/honda-activa-3g-black.webp',
+                        category: 'bikes',
+                        size: '142KB',
+                        dimensions: '800x600',
+                        uploadDate: '2024-01-15',
+                        tags: ['honda', 'activa', 'scooter', 'black']
+                    },
+                    {
+                        id: 3,
+                        filename: 'suzuki-access-125.avif',
+                        url: 'images/suzuki-access-125.avif',
+                        category: 'bikes',
+                        size: '178KB',
+                        dimensions: '800x600',
+                        uploadDate: '2024-01-15',
+                        tags: ['suzuki', 'access', 'scooter', 'blue']
+                    },
+                    {
+                        id: 4,
+                        filename: 'ford-echo-sport.avif',
+                        url: 'images/ford-echo-sport.avif',
+                        category: 'taxi',
+                        size: '245KB',
+                        dimensions: '800x600',
+                        uploadDate: '2024-01-15',
+                        tags: ['ford', 'echo', 'car', 'taxi']
+                    },
+                    {
+                        id: 5,
+                        filename: 'hero.png',
+                        url: 'images/hero.png',
+                        category: 'hero',
+                        size: '512KB',
+                        dimensions: '1920x1080',
+                        uploadDate: '2024-01-15',
+                        tags: ['hero', 'main', 'banner', 'murdeshwar']
+                    },
+                    {
+                        id: 6,
+                        filename: 'Murudeshwartemple.webp',
+                        url: 'images/Murudeshwartemple.webp',
+                        category: 'other',
+                        size: '234KB',
+                        dimensions: '800x600',
+                        uploadDate: '2024-01-15',
+                        tags: ['temple', 'murdeshwar', 'location', 'landmark']
+                    }
+                ];
+            }
+
+            saveImages() {
+                localStorage.setItem('mrr_images', JSON.stringify(this.images));
+            }
+
+            setupEventListeners() {
+                const uploadZone = document.getElementById('uploadZone');
+                const fileInput = document.getElementById('fileInput');
+                const searchInput = document.getElementById('searchInput');
+
+                // Upload zone click
+                uploadZone.addEventListener('click', () => {
+                    fileInput.click();
+                });
+
+                // File input change
+                fileInput.addEventListener('change', (e) => {
+                    this.handleFileSelect(e.target.files);
+                });
+
+                // Drag and drop
+                uploadZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.add('dragover');
+                });
+
+                uploadZone.addEventListener('dragleave', () => {
+                    uploadZone.classList.remove('dragover');
+                });
+
+                uploadZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadZone.classList.remove('dragover');
+                    this.handleFileSelect(e.dataTransfer.files);
+                });
+
+                // Search functionality
+                searchInput.addEventListener('input', (e) => {
+                    this.searchImages(e.target.value);
+                });
+            }
+
+            handleFileSelect(files) {
+                this.selectedFiles = Array.from(files);
+                document.getElementById('uploadButton').disabled = this.selectedFiles.length === 0;
+                
+                // Update upload zone display
+                const uploadZone = document.getElementById('uploadZone');
+                if (this.selectedFiles.length > 0) {
+                    uploadZone.innerHTML = `
+                        <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-lg font-medium text-gray-700 mb-2">${this.selectedFiles.length} file(s) selected</p>
+                        <p class="text-sm text-gray-500">Click upload to proceed</p>
+                    `;
+                }
+            }
+
+            async startUpload() {
+                if (this.selectedFiles.length === 0) return;
+
+                const progressContainer = document.getElementById('uploadProgress');
+                const progressBar = document.getElementById('progressBar');
+                const statusText = document.getElementById('uploadStatus');
+                const uploadButton = document.getElementById('uploadButton');
+                const category = document.getElementById('uploadCategory').value;
+
+                progressContainer.classList.remove('hidden');
+                uploadButton.disabled = true;
+
+                for (let i = 0; i < this.selectedFiles.length; i++) {
+                    const file = this.selectedFiles[i];
+                    const progress = ((i + 1) / this.selectedFiles.length) * 100;
+                    
+                    progressBar.style.width = progress + '%';
+                    statusText.textContent = `Uploading ${file.name}... (${i + 1}/${this.selectedFiles.length})`;
+
+                    // Simulate upload delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+
+                    // Convert file to base64 for storage
+                    const imageUrl = await this.fileToBase64(file);
+                    
+                    // Add to images array
+                    const newImage = {
+                        id: Date.now() + i,
+                        filename: file.name,
+                        url: imageUrl,
+                        category: category,
+                        size: this.formatFileSize(file.size),
+                        dimensions: '800x600', // Would be calculated in real implementation
+                        uploadDate: new Date().toISOString().split('T')[0],
+                        tags: this.generateTags(file.name, category)
+                    };
+
+                    this.images.push(newImage);
+                }
+
+                // Save and render
+                this.saveImages();
+                this.renderImages();
+                
+                // Reset upload modal
+                this.closeUploadModal();
+                this.showAlert('Images uploaded successfully!', 'success');
+            }
+
+            fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            generateTags(filename, category) {
+                const baseTags = [category];
+                const nameParts = filename.toLowerCase().split(/[-_.]/).filter(part => part.length > 2);
+                return [...baseTags, ...nameParts];
+            }
+
+            renderImages() {
+                const grid = document.getElementById('imageGrid');
+                const emptyState = document.getElementById('emptyState');
+                const imageCount = document.getElementById('imageCount');
+
+                let filteredImages = this.images;
+                
+                if (this.currentFilter !== 'all') {
+                    filteredImages = this.images.filter(img => img.category === this.currentFilter);
+                }
+
+                imageCount.textContent = `${filteredImages.length} image${filteredImages.length !== 1 ? 's' : ''}`;
+
+                if (filteredImages.length === 0) {
+                    grid.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                
+                grid.innerHTML = filteredImages.map(image => `
+                    <div class="image-card">
+                        <img src="${image.url}" alt="${image.filename}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        <div class="image-overlay">
+                            <div class="flex gap-2">
+                                <button class="btn btn-primary" onclick="viewImage(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-success" onclick="copyImageUrl(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteImage(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image-info">
+                            <h3>${image.filename}</h3>
+                            <p>Category: ${image.category}</p>
+                            <p>Size: ${image.size}</p>
+                            <p>Uploaded: ${image.uploadDate}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            searchImages(query) {
+                if (!query.trim()) {
+                    this.renderImages();
+                    return;
+                }
+
+                const filteredImages = this.images.filter(image => {
+                    const searchText = query.toLowerCase();
+                    return (
+                        image.filename.toLowerCase().includes(searchText) ||
+                        image.category.toLowerCase().includes(searchText) ||
+                        image.tags.some(tag => tag.toLowerCase().includes(searchText))
+                    );
+                });
+
+                this.renderFilteredImages(filteredImages);
+            }
+
+            renderFilteredImages(filteredImages) {
+                const grid = document.getElementById('imageGrid');
+                const emptyState = document.getElementById('emptyState');
+                const imageCount = document.getElementById('imageCount');
+
+                imageCount.textContent = `${filteredImages.length} image${filteredImages.length !== 1 ? 's' : ''}`;
+
+                if (filteredImages.length === 0) {
+                    grid.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    return;
+                }
+
+                emptyState.classList.add('hidden');
+                
+                grid.innerHTML = filteredImages.map(image => `
+                    <div class="image-card">
+                        <img src="${image.url}" alt="${image.filename}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        <div class="image-overlay">
+                            <div class="flex gap-2">
+                                <button class="btn btn-primary" onclick="viewImage(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-success" onclick="copyImageUrl(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteImage(${image.id})">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="image-info">
+                            <h3>${image.filename}</h3>
+                            <p>Category: ${image.category}</p>
+                            <p>Size: ${image.size}</p>
+                            <p>Uploaded: ${image.uploadDate}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            showAlert(message, type = 'success') {
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = `
+                    <div class="alert alert-${type}">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                ${type === 'success' ? 
+                                    '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>' :
+                                    '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>'
+                                }
+                            </svg>
+                            <span>${message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    alertContainer.innerHTML = '';
+                }, 5000);
+            }
+
+            closeUploadModal() {
+                document.getElementById('uploadModal').classList.remove('active');
+                document.getElementById('uploadProgress').classList.add('hidden');
+                document.getElementById('uploadButton').disabled = false;
+                this.selectedFiles = [];
+                
+                // Reset upload zone
+                const uploadZone = document.getElementById('uploadZone');
+                uploadZone.innerHTML = `
+                    <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    <p class="text-lg font-medium text-gray-700 mb-2">Drop images here or click to browse</p>
+                    <p class="text-sm text-gray-500">Support for JPG, PNG, GIF, WEBP files up to 10MB</p>
+                `;
+            }
+        }
+
+        // Global functions
+        function goBack() {
+            window.location.href = 'admin-dashboard.html';
+        }
+
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.add('active');
+        }
+
+        function closeUploadModal() {
+            if (window.imageManager) {
+                window.imageManager.closeUploadModal();
+            }
+        }
+
+        function startUpload() {
+            if (window.imageManager) {
+                window.imageManager.startUpload();
+            }
+        }
+
+        function filterByCategory(category) {
+            window.imageManager.currentFilter = category;
+            window.imageManager.renderImages();
+            
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function viewImage(id) {
+            const image = window.imageManager.images.find(img => img.id === id);
+            if (image) {
+                const modalContent = document.getElementById('imageModalContent');
+                modalContent.innerHTML = `
+                    <div class="text-center mb-6">
+                        <img src="${image.url}" alt="${image.filename}" class="max-w-full max-h-96 mx-auto rounded-lg shadow-lg">
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Filename</label>
+                            <p class="mt-1 text-sm text-gray-900">${image.filename}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Category</label>
+                            <p class="mt-1 text-sm text-gray-900">${image.category}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Size</label>
+                            <p class="mt-1 text-sm text-gray-900">${image.size}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Dimensions</label>
+                            <p class="mt-1 text-sm text-gray-900">${image.dimensions}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Upload Date</label>
+                            <p class="mt-1 text-sm text-gray-900">${image.uploadDate}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tags</label>
+                            <div class="mt-1 flex flex-wrap gap-2">
+                                ${image.tags.map(tag => `<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Image URL</label>
+                            <div class="mt-1 flex">
+                                <input type="text" value="${image.url}" readonly class="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg text-sm bg-gray-50">
+                                <button class="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition-colors" onclick="copyToClipboard('${image.url}')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('imageModal').classList.add('active');
+            }
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        function copyImageUrl(id) {
+            const image = window.imageManager.images.find(img => img.id === id);
+            if (image) {
+                copyToClipboard(image.url);
+                window.imageManager.showAlert('Image URL copied to clipboard!', 'success');
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                window.imageManager.showAlert('Copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                window.imageManager.showAlert('Failed to copy to clipboard', 'error');
+            });
+        }
+
+        function deleteImage(id) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                window.imageManager.images = window.imageManager.images.filter(img => img.id !== id);
+                window.imageManager.saveImages();
+                window.imageManager.renderImages();
+                window.imageManager.showAlert('Image deleted successfully!', 'success');
+            }
+        }
+
+        // Initialize image manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.imageManager = new ImageManager();
+        });
+    </script>
+</body>
+</html> 

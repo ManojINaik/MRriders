@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Mr Riders Admin</title>
+    <link href="mrriders.png" rel="icon" type="image/png" />
+    <link href="neomorphic.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #f3f4f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background-color: #ffffff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-mint: #10d9c4;
+            --accent-navy: #0f172a;
+            --accent-lavender: #a78bfa;
+            --accent-blue: #1e40af;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+        }
+
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .settings-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #16a34a;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: #fed7aa;
+            color: #d97706;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-online {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .status-offline {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .status-pending {
+            background: #fffbeb;
+            color: #d97706;
+        }
+
+        .backup-card {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: #f9fafb;
+            transition: all 0.3s ease;
+        }
+
+        .backup-card:hover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .tab-navigation {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #6b7280;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 p-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="goBack()" class="p-2 hover:bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-900">Website Settings</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="status-indicator status-online">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        Website Online
+                    </div>
+                    <button class="btn btn-primary" onclick="saveAllSettings()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Save All Settings
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Alert Container -->
+        <div id="alertContainer" class="p-6 pb-0"></div>
+
+        <!-- Tab Navigation -->
+        <div class="bg-white border-b border-gray-200">
+            <div class="px-6">
+                <nav class="tab-navigation">
+                    <button class="tab-button active" onclick="showTab('general')">General</button>
+                    <button class="tab-button" onclick="showTab('business')">Business Info</button>
+                    <button class="tab-button" onclick="showTab('social')">Social Media</button>
+                    <button class="tab-button" onclick="showTab('integrations')">Integrations</button>
+                    <button class="tab-button" onclick="showTab('appearance')">Appearance</button>
+                    <button class="tab-button" onclick="showTab('backup')">Backup & Export</button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="p-6">
+            <!-- General Settings Tab -->
+            <div id="generalTab" class="tab-content active">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Website Configuration -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Website Configuration</h3>
+                        <div class="form-group">
+                            <label class="form-label">Website Title</label>
+                            <input type="text" class="form-input" id="websiteTitle" placeholder="Mr Riders Bike Rentals and Taxi Service">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Meta Description</label>
+                            <textarea class="form-input form-textarea" id="metaDescription" placeholder="Premium bike rentals and taxi services in Murdeshwar, Karnataka..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Keywords</label>
+                            <input type="text" class="form-input" id="keywords" placeholder="bike rental, taxi service, murdeshwar, karnataka">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Website URL</label>
+                            <input type="url" class="form-input" id="websiteUrl" placeholder="https://mrriders.com">
+                        </div>
+                    </div>
+
+                    <!-- Maintenance & Status -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Maintenance & Status</h3>
+                        <div class="form-group">
+                            <label class="form-label">Maintenance Mode</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="maintenanceMode">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Enable maintenance mode to temporarily disable the website</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Maintenance Message</label>
+                            <textarea class="form-input form-textarea" id="maintenanceMessage" placeholder="We're currently performing scheduled maintenance..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Debug Mode</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="debugMode">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Enable debug mode for development</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Security Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Admin Session Timeout (minutes)</label>
+                            <input type="number" class="form-input" id="sessionTimeout" value="60" min="15" max="480">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Enable Two-Factor Authentication</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="twoFactor">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Require 2FA for admin login</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Max Login Attempts</label>
+                            <input type="number" class="form-input" id="maxLoginAttempts" value="5" min="3" max="10">
+                        </div>
+                    </div>
+
+                    <!-- Performance Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Performance Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Enable Caching</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="enableCaching" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Cache static content for faster loading</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Image Optimization</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="imageOptimization" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Automatically optimize uploaded images</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Lazy Loading</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="lazyLoading" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Enable lazy loading for images</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Info Tab -->
+            <div id="businessTab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Contact Information -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
+                        <div class="form-group">
+                            <label class="form-label">Business Name</label>
+                            <input type="text" class="form-input" id="businessName" value="Mr Riders Bike Rentals and Taxi Service">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Primary Phone</label>
+                            <input type="tel" class="form-input" id="primaryPhone" value="+91 9972544847">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" id="emailAddress" value="support@mrriders.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp Number</label>
+                            <input type="tel" class="form-input" id="whatsappNumber" value="+91 9972544847">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Business Address</label>
+                            <textarea class="form-input form-textarea" id="businessAddress">NH 66, near Railway Station, opp. RNS Hospital, Murdeshwar, Bhatkal, Karnataka 581350</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Business Hours -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Business Hours</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Monday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Tuesday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Wednesday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Thursday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Friday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Saturday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium">Sunday</span>
+                                <div class="flex items-center gap-2">
+                                    <input type="time" class="form-input" value="06:00" style="width: 120px;">
+                                    <span>to</span>
+                                    <input type="time" class="form-input" value="22:00" style="width: 120px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Location Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Google Maps API Key</label>
+                            <input type="text" class="form-input" id="googleMapsKey" placeholder="Enter your Google Maps API key">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Latitude</label>
+                            <input type="number" class="form-input" id="latitude" value="14.0955124" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Longitude</label>
+                            <input type="number" class="form-input" id="longitude" value="74.5052063" step="any">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Service Radius (km)</label>
+                            <input type="number" class="form-input" id="serviceRadius" value="50" min="1" max="200">
+                        </div>
+                    </div>
+
+                    <!-- Pricing Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Pricing Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <select class="form-input" id="currency">
+                                <option value="INR">Indian Rupee (₹)</option>
+                                <option value="USD">US Dollar ($)</option>
+                                <option value="EUR">Euro (€)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tax Rate (%)</label>
+                            <input type="number" class="form-input" id="taxRate" value="18" min="0" max="50" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Default Booking Duration (hours)</label>
+                            <input type="number" class="form-input" id="defaultDuration" value="24" min="1" max="168">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Advance Booking Days</label>
+                            <input type="number" class="form-input" id="advanceBooking" value="30" min="1" max="365">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Tab -->
+            <div id="socialTab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Social Media Links -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Social Media Links</h3>
+                        <div class="form-group">
+                            <label class="form-label">Facebook URL</label>
+                            <input type="url" class="form-input" id="facebookUrl" placeholder="https://facebook.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Instagram URL</label>
+                            <input type="url" class="form-input" id="instagramUrl" placeholder="https://instagram.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Twitter URL</label>
+                            <input type="url" class="form-input" id="twitterUrl" placeholder="https://twitter.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">YouTube URL</label>
+                            <input type="url" class="form-input" id="youtubeUrl" placeholder="https://youtube.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">LinkedIn URL</label>
+                            <input type="url" class="form-input" id="linkedinUrl" placeholder="https://linkedin.com/company/mrriders">
+                        </div>
+                    </div>
+
+                    <!-- Social Media Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Social Media Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Show Social Media Links</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="showSocialLinks" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Display social media links in footer</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Social Sharing</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="socialSharing" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Enable social sharing buttons</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Open Graph Image</label>
+                            <input type="url" class="form-input" id="ogImage" placeholder="https://example.com/og-image.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrations Tab -->
+            <div id="integrationsTab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Analytics -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Analytics & Tracking</h3>
+                        <div class="form-group">
+                            <label class="form-label">Google Analytics 4 ID</label>
+                            <input type="text" class="form-input" id="googleAnalytics" placeholder="G-XXXXXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Google Tag Manager ID</label>
+                            <input type="text" class="form-input" id="googleTagManager" placeholder="GTM-XXXXXXX">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Facebook Pixel ID</label>
+                            <input type="text" class="form-input" id="facebookPixel" placeholder="123456789012345">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hotjar Site ID</label>
+                            <input type="text" class="form-input" id="hotjarId" placeholder="1234567">
+                        </div>
+                    </div>
+
+                    <!-- Payment Integration -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Payment Integration</h3>
+                        <div class="form-group">
+                            <label class="form-label">Enable Online Payments</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="onlinePayments">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Accept online payments for bookings</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Razorpay Key ID</label>
+                            <input type="text" class="form-input" id="razorpayKey" placeholder="rzp_test_xxxxxxxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">PayPal Client ID</label>
+                            <input type="text" class="form-input" id="paypalClientId" placeholder="Your PayPal client ID">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">UPI ID</label>
+                            <input type="text" class="form-input" id="upiId" placeholder="mrriders@upi">
+                        </div>
+                    </div>
+
+                    <!-- Email Integration -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Email Integration</h3>
+                        <div class="form-group">
+                            <label class="form-label">SMTP Server</label>
+                            <input type="text" class="form-input" id="smtpServer" placeholder="smtp.gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">SMTP Port</label>
+                            <input type="number" class="form-input" id="smtpPort" value="587">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Username</label>
+                            <input type="email" class="form-input" id="emailUsername" placeholder="your-email@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Password</label>
+                            <input type="password" class="form-input" id="emailPassword" placeholder="Your app password">
+                        </div>
+                    </div>
+
+                    <!-- SMS Integration -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">SMS Integration</h3>
+                        <div class="form-group">
+                            <label class="form-label">Enable SMS Notifications</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="smsNotifications">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Send SMS notifications for bookings</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">SMS Provider</label>
+                            <select class="form-input" id="smsProvider">
+                                <option value="twilio">Twilio</option>
+                                <option value="textlocal">TextLocal</option>
+                                <option value="msg91">MSG91</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">SMS API Key</label>
+                            <input type="text" class="form-input" id="smsApiKey" placeholder="Your SMS API key">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appearance Tab -->
+            <div id="appearanceTab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Theme Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Theme Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Primary Color</label>
+                            <input type="color" class="form-input" id="primaryColor" value="#6366f1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Secondary Color</label>
+                            <input type="color" class="form-input" id="secondaryColor" value="#f3f4f6">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Accent Color</label>
+                            <input type="color" class="form-input" id="accentColor" value="#a855f7">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Font Family</label>
+                            <select class="form-input" id="fontFamily">
+                                <option value="Plus Jakarta Sans">Plus Jakarta Sans</option>
+                                <option value="Inter">Inter</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Open Sans">Open Sans</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Logo & Branding -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Logo & Branding</h3>
+                        <div class="form-group">
+                            <label class="form-label">Logo URL</label>
+                            <input type="url" class="form-input" id="logoUrl" value="mrriders.png">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Favicon URL</label>
+                            <input type="url" class="form-input" id="faviconUrl" value="mrriders.png">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Brand Tagline</label>
+                            <input type="text" class="form-input" id="brandTagline" placeholder="Your trusted travel partner">
+                        </div>
+                    </div>
+
+                    <!-- Layout Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Layout Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Enable Dark Mode</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="darkMode">
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Allow users to switch to dark mode</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Enable Animations</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="enableAnimations" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Enable scroll animations and transitions</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sticky Navigation</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="stickyNav" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Keep navigation bar fixed at top</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Custom CSS -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Custom CSS</h3>
+                        <div class="form-group">
+                            <label class="form-label">Additional CSS</label>
+                            <textarea class="form-input form-textarea" id="customCSS" rows="8" placeholder="/* Add your custom CSS here */"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup & Export Tab -->
+            <div id="backupTab" class="tab-content">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Backup Settings -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Backup Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Auto Backup</label>
+                            <div class="flex items-center gap-3">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="autoBackup" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span class="text-sm text-gray-600">Automatically backup data daily</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Backup Frequency</label>
+                            <select class="form-input" id="backupFrequency">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Backup Storage</label>
+                            <select class="form-input" id="backupStorage">
+                                <option value="local">Local Storage</option>
+                                <option value="cloud">Cloud Storage</option>
+                                <option value="both">Both</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Export Data -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Export Data</h3>
+                        <div class="space-y-4">
+                            <div class="backup-card">
+                                <h4 class="font-semibold mb-2">Export All Data</h4>
+                                <p class="text-sm text-gray-600 mb-4">Export all website data including content, settings, and user data</p>
+                                <button class="btn btn-primary" onclick="exportData('all')">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Export All Data
+                                </button>
+                            </div>
+                            
+                            <div class="backup-card">
+                                <h4 class="font-semibold mb-2">Export Content Only</h4>
+                                <p class="text-sm text-gray-600 mb-4">Export only content data (bikes, services, testimonials)</p>
+                                <button class="btn btn-secondary" onclick="exportData('content')">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    Export Content
+                                </button>
+                            </div>
+                            
+                            <div class="backup-card">
+                                <h4 class="font-semibold mb-2">Export Settings Only</h4>
+                                <p class="text-sm text-gray-600 mb-4">Export website settings and configuration</p>
+                                <button class="btn btn-secondary" onclick="exportData('settings')">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    Export Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Import Data -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">Import Data</h3>
+                        <div class="form-group">
+                            <label class="form-label">Import Backup File</label>
+                            <input type="file" class="form-input" id="importFile" accept=".json,.csv">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" onclick="importData()">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                </svg>
+                                Import Data
+                            </button>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4">
+                            <p class="text-sm text-yellow-800">
+                                <strong>Warning:</strong> Importing data will overwrite existing content. Please create a backup before importing.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- System Information -->
+                    <div class="settings-card">
+                        <h3 class="text-lg font-semibold mb-4">System Information</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Website Version:</span>
+                                <span class="font-medium">v2.1.0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Database Size:</span>
+                                <span class="font-medium">2.5 MB</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Images:</span>
+                                <span class="font-medium">24 files (15.2 MB)</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Last Backup:</span>
+                                <span class="font-medium">2024-01-15 10:30 AM</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Uptime:</span>
+                                <span class="font-medium">24 days, 6 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Settings Management System
+        class SettingsManager {
+            constructor() {
+                this.settings = {};
+                this.init();
+            }
+
+            init() {
+                this.loadSettings();
+                this.bindEvents();
+            }
+
+            loadSettings() {
+                // Load settings from localStorage
+                const savedSettings = localStorage.getItem('mrr_settings');
+                if (savedSettings) {
+                    this.settings = JSON.parse(savedSettings);
+                } else {
+                    this.loadDefaultSettings();
+                }
+                this.populateForm();
+            }
+
+            loadDefaultSettings() {
+                this.settings = {
+                    general: {
+                        websiteTitle: 'Mr Riders Bike Rentals and Taxi Service',
+                        metaDescription: 'Premium bike rentals and taxi services in Murdeshwar, Karnataka. Book Honda Activa, Dio, Royal Enfield and more.',
+                        keywords: 'bike rental, taxi service, murdeshwar, karnataka, honda activa, royal enfield',
+                        websiteUrl: 'https://mrriders.com',
+                        maintenanceMode: false,
+                        maintenanceMessage: 'We are currently performing scheduled maintenance. Please check back soon.',
+                        debugMode: false,
+                        sessionTimeout: 60,
+                        twoFactor: false,
+                        maxLoginAttempts: 5,
+                        enableCaching: true,
+                        imageOptimization: true,
+                        lazyLoading: true
+                    },
+                    business: {
+                        businessName: 'Mr Riders Bike Rentals and Taxi Service',
+                        primaryPhone: '+91 9972544847',
+                        emailAddress: 'support@mrriders.com',
+                        whatsappNumber: '+91 9972544847',
+                        businessAddress: 'NH 66, near Railway Station, opp. RNS Hospital, Murdeshwar, Bhatkal, Karnataka 581350',
+                        googleMapsKey: '',
+                        latitude: 14.0955124,
+                        longitude: 74.5052063,
+                        serviceRadius: 50,
+                        currency: 'INR',
+                        taxRate: 18,
+                        defaultDuration: 24,
+                        advanceBooking: 30
+                    },
+                    social: {
+                        facebookUrl: '',
+                        instagramUrl: '',
+                        twitterUrl: '',
+                        youtubeUrl: '',
+                        linkedinUrl: '',
+                        showSocialLinks: true,
+                        socialSharing: true,
+                        ogImage: ''
+                    },
+                    integrations: {
+                        googleAnalytics: '',
+                        googleTagManager: '',
+                        facebookPixel: '',
+                        hotjarId: '',
+                        onlinePayments: false,
+                        razorpayKey: '',
+                        paypalClientId: '',
+                        upiId: 'mrriders@upi',
+                        smtpServer: 'smtp.gmail.com',
+                        smtpPort: 587,
+                        emailUsername: '',
+                        emailPassword: '',
+                        smsNotifications: false,
+                        smsProvider: 'twilio',
+                        smsApiKey: ''
+                    },
+                    appearance: {
+                        primaryColor: '#6366f1',
+                        secondaryColor: '#f3f4f6',
+                        accentColor: '#a855f7',
+                        fontFamily: 'Plus Jakarta Sans',
+                        logoUrl: 'mrriders.png',
+                        faviconUrl: 'mrriders.png',
+                        brandTagline: 'Your trusted travel partner',
+                        darkMode: false,
+                        enableAnimations: true,
+                        stickyNav: true,
+                        customCSS: ''
+                    },
+                    backup: {
+                        autoBackup: true,
+                        backupFrequency: 'daily',
+                        backupStorage: 'local'
+                    }
+                };
+            }
+
+            populateForm() {
+                // Populate form fields with saved settings
+                Object.keys(this.settings).forEach(section => {
+                    Object.keys(this.settings[section]).forEach(key => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            if (element.type === 'checkbox') {
+                                element.checked = this.settings[section][key];
+                            } else {
+                                element.value = this.settings[section][key];
+                            }
+                        }
+                    });
+                });
+            }
+
+            bindEvents() {
+                // Bind form change events
+                document.querySelectorAll('input, select, textarea').forEach(element => {
+                    element.addEventListener('change', () => {
+                        this.updateSetting(element.id, element.type === 'checkbox' ? element.checked : element.value);
+                    });
+                });
+            }
+
+            updateSetting(key, value) {
+                // Find which section this setting belongs to
+                Object.keys(this.settings).forEach(section => {
+                    if (this.settings[section].hasOwnProperty(key)) {
+                        this.settings[section][key] = value;
+                    }
+                });
+            }
+
+            saveSettings() {
+                // Save settings to localStorage
+                localStorage.setItem('mrr_settings', JSON.stringify(this.settings));
+                this.showAlert('Settings saved successfully!', 'success');
+            }
+
+            showAlert(message, type = 'success') {
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = `
+                    <div class="alert alert-${type}">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                ${type === 'success' ? 
+                                    '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>' :
+                                    '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>'
+                                }
+                            </svg>
+                            <span>${message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    alertContainer.innerHTML = '';
+                }, 5000);
+            }
+        }
+
+        // Global functions
+        function goBack() {
+            window.location.href = 'admin-dashboard.html';
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function saveAllSettings() {
+            if (window.settingsManager) {
+                window.settingsManager.saveSettings();
+            }
+        }
+
+        function exportData(type) {
+            let data = {};
+            
+            switch(type) {
+                case 'all':
+                    data = {
+                        settings: JSON.parse(localStorage.getItem('mrr_settings') || '{}'),
+                        content: JSON.parse(localStorage.getItem('mrr_content_data') || '{}'),
+                        images: JSON.parse(localStorage.getItem('mrr_images') || '[]'),
+                        timestamp: new Date().toISOString()
+                    };
+                    break;
+                case 'content':
+                    data = {
+                        content: JSON.parse(localStorage.getItem('mrr_content_data') || '{}'),
+                        images: JSON.parse(localStorage.getItem('mrr_images') || '[]'),
+                        timestamp: new Date().toISOString()
+                    };
+                    break;
+                case 'settings':
+                    data = {
+                        settings: JSON.parse(localStorage.getItem('mrr_settings') || '{}'),
+                        timestamp: new Date().toISOString()
+                    };
+                    break;
+            }
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `mrr_backup_${type}_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            window.settingsManager.showAlert(`${type} data exported successfully!`, 'success');
+        }
+
+        function importData() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                window.settingsManager.showAlert('Please select a file to import.', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (data.settings) {
+                        localStorage.setItem('mrr_settings', JSON.stringify(data.settings));
+                    }
+                    if (data.content) {
+                        localStorage.setItem('mrr_content_data', JSON.stringify(data.content));
+                    }
+                    if (data.images) {
+                        localStorage.setItem('mrr_images', JSON.stringify(data.images));
+                    }
+                    
+                    window.settingsManager.showAlert('Data imported successfully! Please refresh the page.', 'success');
+                } catch (error) {
+                    window.settingsManager.showAlert('Error importing data. Please check the file format.', 'error');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+        // Initialize settings manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.settingsManager = new SettingsManager();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management - Mr Riders Admin</title>
+    <link href="mrriders.png" rel="icon" type="image/png" />
+    <link href="neomorphic.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #f3f4f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background-color: #ffffff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-mint: #10d9c4;
+            --accent-navy: #0f172a;
+            --accent-lavender: #a78bfa;
+            --accent-blue: #1e40af;
+            --error-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .image-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .image-upload-area.dragover {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #16a34a;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        .bike-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .bike-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200 p-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button onclick="goBack()" class="p-2 hover:bg-gray-100 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-bold text-gray-900">Content Management</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="btn btn-primary" onclick="saveAllChanges()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Save All Changes
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Alert Container -->
+        <div id="alertContainer" class="p-6 pb-0"></div>
+
+        <!-- Tabs -->
+        <div class="bg-white border-b border-gray-200">
+            <div class="px-6">
+                <nav class="flex space-x-8">
+                    <button class="tab-button active" onclick="showTab('bikes')">Bikes</button>
+                    <button class="tab-button" onclick="showTab('taxi')">Taxi Services</button>
+                    <button class="tab-button" onclick="showTab('testimonials')">Testimonials</button>
+                    <button class="tab-button" onclick="showTab('content')">General Content</button>
+                    <button class="tab-button" onclick="showTab('settings')">Settings</button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="p-6">
+            <!-- Bikes Tab -->
+            <div id="bikesTab" class="tab-content active">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Bike Management</h2>
+                    <button class="btn btn-primary" onclick="addNewBike()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add New Bike
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="bikesContainer">
+                    <!-- Bike cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Taxi Services Tab -->
+            <div id="taxiTab" class="tab-content">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Taxi Services Management</h2>
+                    <button class="btn btn-primary" onclick="addNewService()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add New Service
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesContainer">
+                    <!-- Service cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- Testimonials Tab -->
+            <div id="testimonialsTab" class="tab-content">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900">Customer Testimonials</h2>
+                    <button class="btn btn-primary" onclick="addNewTestimonial()">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add New Testimonial
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="testimonialsContainer">
+                    <!-- Testimonial cards will be populated here -->
+                </div>
+            </div>
+
+            <!-- General Content Tab -->
+            <div id="contentTab" class="tab-content">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">General Content Management</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Hero Section -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Hero Section</h3>
+                        <div class="form-group">
+                            <label class="form-label">Main Title</label>
+                            <input type="text" class="form-input" id="heroTitle" placeholder="Explore Murdeshwar in Style">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-input form-textarea" id="heroDescription" placeholder="Premium bike rentals and reliable taxi services..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hero Image</label>
+                            <div class="image-upload-area" onclick="uploadImage('hero')">
+                                <img id="heroImagePreview" class="image-preview mx-auto mb-4" style="display: none;">
+                                <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <p class="text-gray-600">Click to upload hero image</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" id="contactPhone" placeholder="+91 9972544847">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" id="contactEmail" placeholder="support@mrriders.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-input form-textarea" id="contactAddress" placeholder="NH 66, near Railway Station, opp. RNS Hospital..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp Number</label>
+                            <input type="tel" class="form-input" id="whatsappNumber" placeholder="+91 9972544847">
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Terms and Conditions</h3>
+                        <div class="form-group">
+                            <label class="form-label">Terms Content</label>
+                            <textarea class="form-input form-textarea" id="termsContent" rows="8" placeholder="Enter terms and conditions..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Pickup Points -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Pickup Points</h3>
+                        <div id="pickupPointsContainer">
+                            <!-- Pickup points will be populated here -->
+                        </div>
+                        <button class="btn btn-secondary mt-4" onclick="addPickupPoint()">Add Pickup Point</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="tab-content">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Website Settings</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- General Settings -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">General Settings</h3>
+                        <div class="form-group">
+                            <label class="form-label">Website Title</label>
+                            <input type="text" class="form-input" id="websiteTitle" placeholder="Mr Riders Bike Rentals and Taxi Service">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Meta Description</label>
+                            <textarea class="form-input form-textarea" id="metaDescription" placeholder="Premium bike rentals and taxi services in Murdeshwar..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Google Analytics ID</label>
+                            <input type="text" class="form-input" id="googleAnalytics" placeholder="G-XXXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="content-card p-6">
+                        <h3 class="text-lg font-semibold mb-4">Social Media Links</h3>
+                        <div class="form-group">
+                            <label class="form-label">Facebook URL</label>
+                            <input type="url" class="form-input" id="facebookUrl" placeholder="https://facebook.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Instagram URL</label>
+                            <input type="url" class="form-input" id="instagramUrl" placeholder="https://instagram.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Twitter URL</label>
+                            <input type="url" class="form-input" id="twitterUrl" placeholder="https://twitter.com/mrriders">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">YouTube URL</label>
+                            <input type="url" class="form-input" id="youtubeUrl" placeholder="https://youtube.com/mrriders">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 id="modalTitle" class="text-xl font-semibold">Edit Item</h3>
+                <button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modalContent">
+                <!-- Modal content will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+
+    <script>
+        // Content Management System
+        class ContentManager {
+            constructor() {
+                this.currentData = {
+                    bikes: [],
+                    taxiServices: [],
+                    testimonials: [],
+                    heroContent: {},
+                    contactInfo: {},
+                    termsConditions: '',
+                    pickupPoints: [],
+                    settings: {}
+                };
+                this.init();
+            }
+
+            init() {
+                this.loadData();
+                this.setupImageUpload();
+                this.renderContent();
+            }
+
+            loadData() {
+                // Load from localStorage or use default data
+                const savedData = localStorage.getItem('mrr_content_data');
+                if (savedData) {
+                    this.currentData = JSON.parse(savedData);
+                } else {
+                    this.loadDefaultData();
+                }
+            }
+
+            loadDefaultData() {
+                this.currentData = {
+                    bikes: [
+                        {
+                            id: 1,
+                            name: 'Honda Dio',
+                            price: 500,
+                            features: ['110cc Engine', 'Stylish Design', 'Fuel Efficient'],
+                            image: 'images/honda-new-dio.avif',
+                            rating: 4.9,
+                            status: 'Available',
+                            description: 'Stylish Honda Dio in vibrant red - perfect for exploring Murdeshwar\'s temples and beaches.'
+                        },
+                        {
+                            id: 2,
+                            name: 'Honda Activa',
+                            price: 500,
+                            features: ['125cc Engine', 'Fuel Efficient', 'Easy Ride'],
+                            image: 'images/honda-activa-3g-black.webp',
+                            rating: 4.8,
+                            status: 'Available',
+                            description: 'Reliable Honda Activa in sleek black - perfect for comfortable city rides and temple visits.'
+                        },
+                        {
+                            id: 3,
+                            name: 'Suzuki Access 125',
+                            price: 600,
+                            features: ['125cc Engine', 'Great Mileage', 'Smooth Ride'],
+                            image: 'images/suzuki-access-125.avif',
+                            rating: 4.7,
+                            status: 'Available',
+                            description: 'A comfortable and reliable scooter, perfect for navigating the streets of Murdeshwar with ease.'
+                        }
+                    ],
+                    taxiServices: [
+                        {
+                            id: 1,
+                            name: 'Local Sightseeing',
+                            price: 15,
+                            priceUnit: 'per km',
+                            features: ['AC Vehicle', 'Local Guide', 'Flexible Hours'],
+                            image: 'images/ford-echo-sport.avif',
+                            rating: 4.9,
+                            description: 'Discover Murdeshwar\'s iconic attractions with our comfortable and air-conditioned vehicles.'
+                        },
+                        {
+                            id: 2,
+                            name: 'Airport Transfer',
+                            price: 15,
+                            priceUnit: 'per km',
+                            features: ['24/7 Service', 'Flight Tracking', 'Meet & Greet'],
+                            image: 'images/ford-echo-sport.avif',
+                            rating: 4.8,
+                            description: 'Reliable and punctual pickup and drop services to airports, railway stations, and bus terminals.'
+                        }
+                    ],
+                    testimonials: [
+                        {
+                            id: 1,
+                            name: 'Rahul Sharma',
+                            rating: 5,
+                            comment: 'Rented a Royal Enfield from Mr Riders for exploring Murdeshwar. The bike was in excellent condition, and the staff was very helpful. Will definitely use their services again!',
+                            date: '2023-12-15',
+                            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'
+                        },
+                        {
+                            id: 2,
+                            name: 'Priya Patel',
+                            rating: 4,
+                            comment: 'Used their taxi service for a day trip to Gokarna. The driver was punctual, friendly, and knew all the best spots. The car was comfortable and clean. Great service at reasonable prices!',
+                            date: '2024-01-10',
+                            image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80'
+                        }
+                    ],
+                    heroContent: {
+                        title: 'Explore Murdeshwar in Style',
+                        description: 'Premium bike rentals and reliable taxi services near Railway Station. Discover the beauty of coastal Karnataka with Mr Riders.',
+                        image: 'images/hero.png'
+                    },
+                    contactInfo: {
+                        phone: '+91 9972544847',
+                        email: 'support@mrriders.com',
+                        address: 'NH 66, near Railway Station, opp. RNS Hospital, Murdeshwar, Bhatkal, Karnataka 581350',
+                        whatsapp: '+91 9972544847'
+                    },
+                    termsConditions: 'Original Driving License Mandatory - Valid driving license with 1 ID proof required...',
+                    pickupPoints: [
+                        {
+                            id: 1,
+                            name: 'Temple Road',
+                            location: 'Near KSRTC Bus Stop, Murdeshwar',
+                            description: 'Perfect for temple visitors and those arriving by state transport buses.',
+                            features: ['Temple Access', 'Bus Stop', 'Easy Parking']
+                        },
+                        {
+                            id: 2,
+                            name: 'Railway Station',
+                            location: 'Near Railway Station & Bypass Bus Stop, opposite RNS Hospital',
+                            description: 'Our main pickup hub.',
+                            features: ['Main Hub', 'Hospital Nearby', '24/7 Access']
+                        }
+                    ],
+                    settings: {
+                        websiteTitle: 'Mr Riders Bike Rentals and Taxi Service',
+                        metaDescription: 'Premium bike rentals and taxi services in Murdeshwar, Karnataka. Book Honda Activa, Dio, Royal Enfield and more.',
+                        googleAnalytics: '',
+                        socialMedia: {
+                            facebook: '',
+                            instagram: '',
+                            twitter: '',
+                            youtube: ''
+                        }
+                    }
+                };
+            }
+
+            saveData() {
+                localStorage.setItem('mrr_content_data', JSON.stringify(this.currentData));
+                this.showAlert('Data saved successfully!', 'success');
+            }
+
+            renderContent() {
+                this.renderBikes();
+                this.renderTaxiServices();
+                this.renderTestimonials();
+                this.renderGeneralContent();
+                this.renderSettings();
+            }
+
+            renderBikes() {
+                const container = document.getElementById('bikesContainer');
+                container.innerHTML = '';
+
+                this.currentData.bikes.forEach(bike => {
+                    const bikeCard = document.createElement('div');
+                    bikeCard.className = 'bike-card';
+                    bikeCard.innerHTML = `
+                        <img src="${bike.image}" alt="${bike.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        <h3 class="text-lg font-semibold mb-2">${bike.name}</h3>
+                        <p class="text-gray-600 mb-3">${bike.description}</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-900">₹${bike.price}</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">${bike.status}</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-yellow-500">★ ${bike.rating}</span>
+                            <div class="flex gap-2">
+                                <button class="btn btn-primary" onclick="editBike(${bike.id})">Edit</button>
+                                <button class="btn btn-danger" onclick="deleteBike(${bike.id})">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(bikeCard);
+                });
+            }
+
+            renderTaxiServices() {
+                const container = document.getElementById('servicesContainer');
+                container.innerHTML = '';
+
+                this.currentData.taxiServices.forEach(service => {
+                    const serviceCard = document.createElement('div');
+                    serviceCard.className = 'bike-card';
+                    serviceCard.innerHTML = `
+                        <img src="${service.image}" alt="${service.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        <h3 class="text-lg font-semibold mb-2">${service.name}</h3>
+                        <p class="text-gray-600 mb-3">${service.description}</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-gray-900">₹${service.price} <span class="text-sm text-gray-500">${service.priceUnit}</span></span>
+                            <span class="text-yellow-500">★ ${service.rating}</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="btn btn-primary" onclick="editTaxiService(${service.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteTaxiService(${service.id})">Delete</button>
+                        </div>
+                    `;
+                    container.appendChild(serviceCard);
+                });
+            }
+
+            renderTestimonials() {
+                const container = document.getElementById('testimonialsContainer');
+                container.innerHTML = '';
+
+                this.currentData.testimonials.forEach(testimonial => {
+                    const testimonialCard = document.createElement('div');
+                    testimonialCard.className = 'content-card p-6';
+                    testimonialCard.innerHTML = `
+                        <div class="flex items-start gap-4 mb-4">
+                            <img src="${testimonial.image}" alt="${testimonial.name}" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h4 class="font-semibold">${testimonial.name}</h4>
+                                <p class="text-sm text-gray-500">${testimonial.date}</p>
+                                <div class="text-yellow-500">★ ${testimonial.rating}</div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">${testimonial.comment}</p>
+                        <div class="flex gap-2">
+                            <button class="btn btn-primary" onclick="editTestimonial(${testimonial.id})">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteTestimonial(${testimonial.id})">Delete</button>
+                        </div>
+                    `;
+                    container.appendChild(testimonialCard);
+                });
+            }
+
+            renderGeneralContent() {
+                // Load hero content
+                document.getElementById('heroTitle').value = this.currentData.heroContent.title || '';
+                document.getElementById('heroDescription').value = this.currentData.heroContent.description || '';
+                
+                // Load contact info
+                document.getElementById('contactPhone').value = this.currentData.contactInfo.phone || '';
+                document.getElementById('contactEmail').value = this.currentData.contactInfo.email || '';
+                document.getElementById('contactAddress').value = this.currentData.contactInfo.address || '';
+                document.getElementById('whatsappNumber').value = this.currentData.contactInfo.whatsapp || '';
+                
+                // Load terms
+                document.getElementById('termsContent').value = this.currentData.termsConditions || '';
+                
+                // Load pickup points
+                this.renderPickupPoints();
+            }
+
+            renderPickupPoints() {
+                const container = document.getElementById('pickupPointsContainer');
+                container.innerHTML = '';
+
+                this.currentData.pickupPoints.forEach((point, index) => {
+                    const pointDiv = document.createElement('div');
+                    pointDiv.className = 'border border-gray-200 rounded-lg p-4 mb-4';
+                    pointDiv.innerHTML = `
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold">${point.name}</h4>
+                            <button class="btn btn-danger" onclick="deletePickupPoint(${index})">Delete</button>
+                        </div>
+                        <p class="text-gray-600 mb-2">${point.location}</p>
+                        <p class="text-sm text-gray-500">${point.description}</p>
+                    `;
+                    container.appendChild(pointDiv);
+                });
+            }
+
+            renderSettings() {
+                document.getElementById('websiteTitle').value = this.currentData.settings.websiteTitle || '';
+                document.getElementById('metaDescription').value = this.currentData.settings.metaDescription || '';
+                document.getElementById('googleAnalytics').value = this.currentData.settings.googleAnalytics || '';
+                
+                if (this.currentData.settings.socialMedia) {
+                    document.getElementById('facebookUrl').value = this.currentData.settings.socialMedia.facebook || '';
+                    document.getElementById('instagramUrl').value = this.currentData.settings.socialMedia.instagram || '';
+                    document.getElementById('twitterUrl').value = this.currentData.settings.socialMedia.twitter || '';
+                    document.getElementById('youtubeUrl').value = this.currentData.settings.socialMedia.youtube || '';
+                }
+            }
+
+            setupImageUpload() {
+                const fileInput = document.getElementById('imageUpload');
+                fileInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const imageUrl = e.target.result;
+                            this.handleImageUpload(imageUrl);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            handleImageUpload(imageUrl) {
+                // Handle image upload based on current context
+                if (this.currentUploadTarget) {
+                    if (this.currentUploadTarget === 'hero') {
+                        this.currentData.heroContent.image = imageUrl;
+                        document.getElementById('heroImagePreview').src = imageUrl;
+                        document.getElementById('heroImagePreview').style.display = 'block';
+                    }
+                    // Add more image upload handlers as needed
+                }
+            }
+
+            showAlert(message, type = 'success') {
+                const alertContainer = document.getElementById('alertContainer');
+                alertContainer.innerHTML = `
+                    <div class="alert alert-${type}">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                ${type === 'success' ? 
+                                    '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>' :
+                                    '<path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>'
+                                }
+                            </svg>
+                            <span>${message}</span>
+                        </div>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    alertContainer.innerHTML = '';
+                }, 5000);
+            }
+        }
+
+        // Global functions
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            // Update tab buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function goBack() {
+            window.location.href = 'admin-dashboard.html';
+        }
+
+        function saveAllChanges() {
+            if (window.contentManager) {
+                // Collect all form data
+                const heroContent = {
+                    title: document.getElementById('heroTitle').value,
+                    description: document.getElementById('heroDescription').value,
+                    image: window.contentManager.currentData.heroContent.image || 'images/hero.png'
+                };
+                
+                const contactInfo = {
+                    phone: document.getElementById('contactPhone').value,
+                    email: document.getElementById('contactEmail').value,
+                    address: document.getElementById('contactAddress').value,
+                    whatsapp: document.getElementById('whatsappNumber').value
+                };
+                
+                const settings = {
+                    websiteTitle: document.getElementById('websiteTitle').value,
+                    metaDescription: document.getElementById('metaDescription').value,
+                    googleAnalytics: document.getElementById('googleAnalytics').value,
+                    socialMedia: {
+                        facebook: document.getElementById('facebookUrl').value,
+                        instagram: document.getElementById('instagramUrl').value,
+                        twitter: document.getElementById('twitterUrl').value,
+                        youtube: document.getElementById('youtubeUrl').value
+                    }
+                };
+                
+                // Update data
+                window.contentManager.currentData.heroContent = heroContent;
+                window.contentManager.currentData.contactInfo = contactInfo;
+                window.contentManager.currentData.termsConditions = document.getElementById('termsContent').value;
+                window.contentManager.currentData.settings = settings;
+                
+                // Save changes
+                window.contentManager.saveData();
+            }
+        }
+
+        function uploadImage(target) {
+            window.contentManager.currentUploadTarget = target;
+            document.getElementById('imageUpload').click();
+        }
+
+        function addNewBike() {
+            // Implementation for adding new bike
+            console.log('Add new bike clicked');
+        }
+
+        function editBike(id) {
+            // Implementation for editing bike
+            console.log('Edit bike:', id);
+        }
+
+        function deleteBike(id) {
+            if (confirm('Are you sure you want to delete this bike?')) {
+                window.contentManager.currentData.bikes = window.contentManager.currentData.bikes.filter(bike => bike.id !== id);
+                window.contentManager.renderBikes();
+                window.contentManager.saveData();
+            }
+        }
+
+        function addNewService() {
+            // Implementation for adding new service
+            console.log('Add new service clicked');
+        }
+
+        function editTaxiService(id) {
+            // Implementation for editing taxi service
+            console.log('Edit taxi service:', id);
+        }
+
+        function deleteTaxiService(id) {
+            if (confirm('Are you sure you want to delete this service?')) {
+                window.contentManager.currentData.taxiServices = window.contentManager.currentData.taxiServices.filter(service => service.id !== id);
+                window.contentManager.renderTaxiServices();
+                window.contentManager.saveData();
+            }
+        }
+
+        function addNewTestimonial() {
+            // Implementation for adding new testimonial
+            console.log('Add new testimonial clicked');
+        }
+
+        function editTestimonial(id) {
+            // Implementation for editing testimonial
+            console.log('Edit testimonial:', id);
+        }
+
+        function deleteTestimonial(id) {
+            if (confirm('Are you sure you want to delete this testimonial?')) {
+                window.contentManager.currentData.testimonials = window.contentManager.currentData.testimonials.filter(testimonial => testimonial.id !== id);
+                window.contentManager.renderTestimonials();
+                window.contentManager.saveData();
+            }
+        }
+
+        function addPickupPoint() {
+            const name = prompt('Enter pickup point name:');
+            const location = prompt('Enter pickup point location:');
+            const description = prompt('Enter pickup point description:');
+            
+            if (name && location && description) {
+                const newPoint = {
+                    id: Date.now(),
+                    name: name,
+                    location: location,
+                    description: description,
+                    features: ['Convenient', 'Accessible']
+                };
+                
+                window.contentManager.currentData.pickupPoints.push(newPoint);
+                window.contentManager.renderPickupPoints();
+                window.contentManager.saveData();
+            }
+        }
+
+        function deletePickupPoint(index) {
+            if (confirm('Are you sure you want to delete this pickup point?')) {
+                window.contentManager.currentData.pickupPoints.splice(index, 1);
+                window.contentManager.renderPickupPoints();
+                window.contentManager.saveData();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        // Initialize content manager
+        document.addEventListener('DOMContentLoaded', () => {
+            window.contentManager = new ContentManager();
+        });
+    </script>
+</body>
+</html> 

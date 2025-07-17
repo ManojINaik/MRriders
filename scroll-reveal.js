@@ -97,11 +97,7 @@ class ScrollRevealManager {
       '.reveal-scale',
       '.reveal-rotate',
       '.reveal-stagger',
-      // Semantic selectors for major content sections
-      'section h2',
-      'section h3',
-      '.grid > *',
-      'form',
+      // Specific selectors for targeted animations
       '.testimonial',
       '.pricing-card'
     ];
