@@ -6,14 +6,23 @@
       <p class="max-w-2xl text-lg md:text-xl font-light">Premium bike rentals and reliable taxi services near
         Railway Station. Discover the beauty of coastal Karnataka with Mr Riders.</p>
       <div class="flex flex-col sm:flex-row gap-4 mt-4">
-        <a href="#bikes"
-          class="flex min-w-[120px] items-center justify-center rounded-lg h-12 px-6 bg-primary-color text-white text-lg font-bold tracking-wide hover:bg-opacity-90 transition-colors hover:scale-105 active:scale-95">
+        <Button 
+          as="a" 
+          href="#bikes"
+          size="lg"
+          class="bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 min-w-[140px]"
+        >
           <span>Rent a Bike</span>
-        </a>
-        <a href="#taxi"
-          class="flex min-w-[120px] items-center justify-center rounded-lg h-12 px-6 bg-white text-primary-color text-lg font-bold tracking-wide hover:bg-opacity-90 transition-colors hover:scale-105 active:scale-95">
+        </Button>
+        <Button 
+          as="a" 
+          href="#taxi"
+          variant="secondary"
+          size="lg"
+          class="bg-white hover:bg-white/90 text-primary shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 min-w-[140px]"
+        >
           <span>Book a Taxi</span>
-        </a>
+        </Button>
       </div>
     </div>
     <!-- Subtle Curved Edge -->
@@ -25,6 +34,10 @@
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+import { Button } from '@/components/ui'
+</script>
 
 <style scoped>
 .hero-responsive-bg {

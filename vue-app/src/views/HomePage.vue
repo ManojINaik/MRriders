@@ -9,6 +9,9 @@ import LocationSection from '@/components/sections/LocationSection.vue';
 import PickupPointsSection from '@/components/sections/PickupPointsSection.vue';
 import ContactSection from '@/components/sections/ContactSection.vue';
 import Footer from '@/components/layout/Footer.vue';
+import { useScrollReveal } from '@/composables/useScrollReveal';
+
+useScrollReveal();
 </script>
 
 <template>

@@ -22,9 +22,32 @@
           </a>
         </div>
       </div>
-      <form class="space-y-6 reveal-scale">
-        <!-- Form fields will go here -->
+      <form class="space-y-6 reveal-scale" @submit.prevent="submitForm">
+        <div>
+          <label class="sr-only" for="name">Your Name</label>
+          <input class="form-input w-full rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-color border-gray-300 h-14 p-4 text-base" id="name" name="name" placeholder="Your Name" type="text" />
+        </div>
+        <div>
+          <label class="sr-only" for="email">Your Email</label>
+          <input class="form-input w-full rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-color border-gray-300 h-14 p-4 text-base" id="email" name="email" placeholder="Your Email" type="email" />
+        </div>
+        <div>
+          <label class="sr-only" for="message">Your Message</label>
+          <textarea class="form-textarea w-full rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-color border-gray-300 p-4 text-base" id="message" name="message" placeholder="Your Message" rows="6"></textarea>
+        </div>
+        <div class="text-center">
+          <button class="min-w-[140px] rounded-lg h-12 px-6 bg-primary-color text-white text-lg font-bold tracking-wide hover:bg-opacity-90 transition-colors" type="submit">
+            Send Message
+          </button>
+        </div>
       </form>
     </div>
   </section>
-</template> 
+</template>
+
+<script setup lang="ts">
+const submitForm = () => {
+  // Handle form submission
+  alert('Form submitted!');
+};
+</script> 
