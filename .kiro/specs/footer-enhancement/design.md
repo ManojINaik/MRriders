@@ -62,9 +62,9 @@ The footer will be implemented as a single HTML section with multiple subsection
 ```javascript
 const footerConfig = {
   contact: {
-    phone: "+919742367853",
+    phone: "+919972544847",
     email: "mrriders@example.com",
-    whatsapp: "+919742367853",
+    whatsapp: "+919972544847",
     address: "Near Railway Station, Murdeshwar, Karnataka"
   },
   services: [
