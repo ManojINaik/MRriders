@@ -23,7 +23,7 @@
       </div>
       <!-- Pickup Points Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 reveal-stagger">
-        <div v-for="(point, index) in pickupPoints" :key="point.name" class="group relative bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-100 hover:border-emerald-200 transform hover:-translate-y-2">
+        <div v-for="(point, index) in pickupPoints" :key="point.name" class="group relative bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border-0 hover:scale-[1.02]">
           <div class="absolute top-6 left-6 z-10">
             <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg">
               <span class="text-white font-bold text-lg">{{ index + 1 }}</span>
@@ -54,7 +54,7 @@
             <div class="flex flex-wrap gap-2 mb-6">
               <span v-for="feature in point.features" :key="feature" class="px-3 py-1 bg-orange-100 text-orange-700 text-xs font-medium rounded-full">{{ feature }}</span>
             </div>
-            <a :href="point.bookingUrl" class="group/btn w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95" target="_blank" rel="noopener noreferrer">
+            <a :href="point.bookingUrl" class="group/btn w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-br from-primary to-orange-400 hover:from-primary/90 hover:to-orange-500 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95" target="_blank" rel="noopener noreferrer">
               <svg class="w-4 h-4 transition-transform group-hover/btn:scale-110" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.132.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.09-.14.12-.236.18-.355.058-.12.027-.221-.015-.308-.041-.087-.445-1.074-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.132 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.051 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
               </svg>
@@ -81,7 +81,7 @@
               </svg>
               Request Custom Pickup
             </a>
-            <a href="tel:+919972544847" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 font-bold rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95">
+            <a href="tel:+919972544847" class="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-br from-primary to-orange-400 hover:from-primary/90 hover:to-orange-500 text-white font-bold rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95" target="_blank" rel="noopener noreferrer">
               <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>

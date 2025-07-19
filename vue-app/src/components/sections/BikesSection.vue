@@ -1,5 +1,5 @@
 <template>
-  <section id="bikes" class="scroll-mt-[100px] relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+  <section id="bikes" class="scroll-mt-[100px] relative py-24 px-4 sm:px-6 lg:px-8 bg-gray-100 overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-5">
       <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
@@ -22,7 +22,7 @@
         </p>
       </div>
       <!-- Bikes Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 reveal-stagger">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger">
         <BikeCard v-for="bike in bikes" :key="bike.id" :bike="bike" />
       </div>
     </div>

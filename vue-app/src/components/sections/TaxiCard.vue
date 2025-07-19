@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative bg-gradient-to-b from-white/80 to-white/40 backdrop-blur-md hover:from-white/90 hover:to-white/60 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border-0">
+  <div class="group relative bg-white hover:bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border-0">
     <!-- Badge -->
     <div class="absolute top-4 left-4 z-10">
       <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white text-xs font-medium rounded-full shadow-lg backdrop-blur-sm">
@@ -60,7 +60,7 @@
       <!-- Book Button -->
       <a 
         :href="service.bookingUrl" 
-        class="group/btn w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-700 hover:via-purple-700 hover:to-indigo-700 text-white text-sm font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-98"
+        class="group/btn w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-br from-primary to-orange-400 hover:from-primary/90 hover:to-orange-500 text-white text-sm font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] active:scale-98"
         target="_blank" 
         rel="noopener noreferrer"
       >

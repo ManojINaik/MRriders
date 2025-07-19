@@ -10,7 +10,7 @@
           as="a" 
           href="#bikes"
           size="lg"
-          class="bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 min-w-[140px]"
+          class="bg-gradient-to-br from-primary to-orange-400 hover:from-primary/90 hover:to-orange-500 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 min-w-[140px]"
         >
           <span>Rent a Bike</span>
         </Button>

@@ -1,9 +1,9 @@
 <template>
-  <section class="py-20 px-4 sm:px-6 lg:px-8">
+  <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-4xl font-bold text-center mb-12 reveal">What Our Customers Say</h2>
       <div class="space-y-10 reveal-stagger">
-        <div v-for="testimonial in testimonials" :key="testimonial.author" class="bg-white p-8 rounded-lg shadow-md">
+        <div v-for="testimonial in testimonials" :key="testimonial.author" class="bg-white p-8 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
           <div class="flex items-start gap-4">
             <img :alt="testimonial.author" class="w-12 h-12 rounded-full object-cover" :src="testimonial.avatar" />
             <div class="flex-1">

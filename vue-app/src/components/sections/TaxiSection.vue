@@ -1,5 +1,5 @@
 <template>
-  <section id="taxi" class="scroll-mt-[100px] relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-indigo-50 overflow-hidden">
+  <section id="taxi" class="scroll-mt-[100px] relative py-24 px-4 sm:px-6 lg:px-8 bg-gray-100 overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-5">
       <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
