@@ -2,18 +2,20 @@
   <footer class="bg-secondary-color py-20 px-4 sm:px-6 lg:px-8 reveal">
     <div class="max-w-7xl mx-auto">
       <div class="flex justify-center mb-16">
-        <div class="bg-gradient-to-br from-primary-color to-orange-400 rounded-2xl p-12 shadow-xl max-w-5xl w-full text-white reveal-scale">
+        <div class="bg-gradient-to-br from-primary to-orange-400 rounded-2xl p-12 shadow-xl max-w-5xl w-full text-white reveal-scale">
           <div class="flex items-center gap-3 mb-8">
             <img src="/mrriders.png" alt="Mr Riders Logo" class="h-12 w-12 object-contain" />
             <h3 class="text-2xl font-bold">Mr Riders</h3>
           </div>
-          <h2 class="text-3xl font-bold mb-8 text-center">Contact</h2>
+          <h2 class="text-3xl font-bold mb-8 text-center">Contact Us</h2>
           <div class="space-y-6 text-center">
+            <div class="mb-6">
+              <p class="text-xl font-semibold mb-2">Mr Riders Bike Rentals and Taxi Service</p>
+              <p class="text-lg">NH 66, near Railway Station, opp. RNS Hospital</p>
+              <p class="text-lg">Murdeshwar, Bhatkal, Karnataka 581350</p>
+            </div>
             <a href="tel:+919972544847" class="block text-xl font-semibold hover:text-orange-100 transition-colors underline">
               +91 9972544847
-            </a>
-            <a href="mailto:support@mrriders.com" class="block text-lg hover:text-orange-100 transition-colors underline">
-              Support@MrRiders.Com
             </a>
             <a href="https://wa.me/+919972544847" class="inline-flex items-center gap-3 mt-6 px-6 py-3 bg-white/20 rounded-lg hover:bg-white/30 transition-colors" target="_blank" rel="noopener noreferrer">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16">
@@ -92,4 +94,4 @@
       </div>
     </div>
   </footer>
-</template> 
+</template>

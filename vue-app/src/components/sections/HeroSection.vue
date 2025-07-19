@@ -41,7 +41,7 @@ import { Button } from '@/components/ui'
 
 <style scoped>
 .hero-responsive-bg {
-  background-image: url('/images/hero.png');
+  background-image: url('/images/hero1.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 25%;
