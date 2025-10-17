@@ -62,9 +62,9 @@ const bikes = ref([
     image: '/images/suzuki-access-125.avif',
     badge: 'ECONOMICAL',
     rating: 4.7,
-    description: 'A comfortable and reliable scooter, perfect for navigating the streets of Murdeshwar with ease.',
+    description: 'A comfortable and reliable scooter, perfect for navigating the streets of Murdeshwar with ease. (24 hours)',
     features: ['125cc Engine', 'Great Mileage', 'Smooth Ride'],
-    price: 600,
+    price: 650,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Suzuki%20Access%20125',
   },
   {
@@ -75,7 +75,7 @@ const bikes = ref([
     rating: 4.9,
     description: 'Experience the classic thump and power. Ideal for long rides along the scenic coastal highways.',
     features: ['350cc Engine', 'Classic Design', 'Comfortable Cruising'],
-    price: 800,
+    price: 1200,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Royal%20Enfield%20Classic',
   },
   {
@@ -86,8 +86,19 @@ const bikes = ref([
     rating: 4.8,
     description: 'A sporty and stylish bike for those who want a bit more thrill in their ride.',
     features: ['149cc Engine', 'Sporty Looks', 'Agile Handling'],
-    price: 700,
+    price: 800,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Yamaha%20FZS',
+  },
+  {
+    id: 'hero-xtream-125r',
+    name: 'Hero Xtream 125R',
+    image: '/images/HeroXtream125R.jpg',
+    badge: 'NEW',
+    rating: 4.8,
+    description: 'Experience the thrill of the new Hero Xtream 125R - perfect for exploring Murdeshwar\'s scenic routes with style and performance.',
+    features: ['125cc Engine', 'Modern Design', 'Excellent Performance'],
+    price: 800,
+    bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Hero%20Xtream%20125R',
   },
 ]);
 </script> 
