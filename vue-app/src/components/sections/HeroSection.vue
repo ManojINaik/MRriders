@@ -1,11 +1,11 @@
 <template>
-  <section class="relative h-screen bg-center hero-responsive-bg">
+  <section class="relative h-screen bg-center hero-responsive-bg overflow-hidden">
     <div class="absolute inset-0 bg-black/50"></div>
-    <div class="relative z-10 flex h-full flex-col items-center justify-center gap-6 text-center text-white px-4">
-      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight">Explore Murdeshwar in Style</h1>
-      <p class="max-w-2xl text-lg md:text-xl font-light">Premium bike rentals and reliable taxi services near
+    <div class="relative z-10 flex h-full flex-col items-center justify-center gap-6 text-center text-white px-4 max-w-full">
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight max-w-full break-words">Explore Murdeshwar in Style</h1>
+      <p class="max-w-2xl text-lg md:text-xl font-light break-words px-4">Premium bike rentals and reliable taxi services near
         Railway Station. Discover the beauty of coastal Karnataka with Mr Riders.</p>
-      <div class="flex flex-col sm:flex-row gap-4 mt-4">
+      <div class="flex flex-col sm:flex-row gap-4 mt-4 max-w-full flex-wrap justify-center">
         <Button 
           as="a" 
           href="#bikes"
