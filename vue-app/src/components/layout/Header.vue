@@ -1,7 +1,7 @@
 <template>
   <header
     class="fixed left-0 right-0 z-50 mx-auto w-full md:max-w-6xl bg-white/95 backdrop-blur-xl border border-neutral-200/60 transition-all duration-300 ease-smooth rounded-2xl shadow-lg hover:shadow-xl navbar-container"
-    :class="isBannerVisible ? 'top-[44px] md:top-[48px]' : 'top-0 md:top-4'"
+    :class="isBannerVisible ? 'top-[52px] md:top-[56px]' : 'top-0 md:top-4'"
     data-navbar>
     <div
       class="flex items-center justify-between px-4 md:px-8 h-16 transition-all duration-300 ease-smooth">
