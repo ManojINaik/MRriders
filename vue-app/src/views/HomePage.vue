@@ -23,7 +23,7 @@ const { isVisible: isBannerVisible } = useTopBanner();
 
   <div
     class="relative flex min-h-screen flex-col group/design-root transition-all duration-300"
-    :class="{ 'pt-[44px]': isBannerVisible }"
+    :class="isBannerVisible ? 'pt-[108px] md:pt-[112px]' : 'pt-16 md:pt-20'"
   >
     <div class="layout-container flex flex-col">
       <Header />
