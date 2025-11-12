@@ -86,9 +86,12 @@
   ></div>
 
   <!-- Mobile Menu -->
-  <nav 
-    class="mobile-menu fixed top-0 left-0 h-full w-80 max-w-[85%] bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-50 transform transition-transform duration-300 ease-smooth"
-    :class="{ '-translate-x-full': !isMobileMenuOpen, 'translate-x-0': isMobileMenuOpen }"
+  <nav
+    class="mobile-menu fixed left-0 w-80 max-w-[85%] bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-[70] transform transition-transform duration-300 ease-smooth"
+    :class="[
+      { '-translate-x-full': !isMobileMenuOpen, 'translate-x-0': isMobileMenuOpen },
+      isBannerVisible ? 'top-[48px] h-[calc(100vh-48px)]' : 'top-0 h-full'
+    ]"
   >
     <!-- Mobile Menu Header -->
     <div class="flex items-center justify-between p-6 border-b border-neutral-200/60 bg-gradient-to-r from-white to-neutral-50/50">
@@ -125,8 +128,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Our Bikes</span>
-          <p class="text-xs text-neutral-600">Premium bikes for rent</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Our Bikes</span>
+          <p class="text-xs !text-neutral-600">Premium bikes for rent</p>
         </div>
       </a>
       
@@ -141,8 +144,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Taxi Services</span>
-          <p class="text-xs text-neutral-600">Reliable taxi rides</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Taxi Services</span>
+          <p class="text-xs !text-neutral-600">Reliable taxi rides</p>
         </div>
       </a>
       
@@ -158,8 +161,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Pickup Points</span>
-          <p class="text-xs text-neutral-600">Convenient locations</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Pickup Points</span>
+          <p class="text-xs !text-neutral-600">Convenient locations</p>
         </div>
       </a>
       
@@ -174,8 +177,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Contact</span>
-          <p class="text-xs text-neutral-600">Get in touch</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Contact</span>
+          <p class="text-xs !text-neutral-600">Get in touch</p>
         </div>
       </a>
     </div>
