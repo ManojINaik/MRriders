@@ -16,7 +16,7 @@ useScrollReveal();
 </script>
 
 <template>
-  <div class="relative flex min-h-screen flex-col group/design-root overflow-x-hidden">
+  <div class="relative flex min-h-screen flex-col group/design-root">
     <div class="layout-container flex flex-col">
       <Header />
       <main class="flex flex-1 flex-col">
