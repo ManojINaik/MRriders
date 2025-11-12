@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="!isDismissed"
+    v-if="isVisible"
     class="top-banner fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-red-600 via-red-500 to-rose-600 text-white shadow-xl border-b-2 border-red-700/50"
   >
     <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
@@ -43,22 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
+import { useTopBanner } from '@/composables/useTopBanner';
 
-const isDismissed = ref(false);
-
-const dismissBanner = () => {
-  isDismissed.value = true;
-  // Store dismissal in localStorage so it stays dismissed for the session
-  localStorage.setItem('topBannerDismissed', 'true');
-};
+const { isVisible, dismissBanner, checkDismissedState } = useTopBanner();
 
 onMounted(() => {
-  // Check if banner was previously dismissed
-  const dismissed = localStorage.getItem('topBannerDismissed');
-  if (dismissed === 'true') {
-    isDismissed.value = true;
-  }
+  checkDismissedState();
 });
 </script>
 

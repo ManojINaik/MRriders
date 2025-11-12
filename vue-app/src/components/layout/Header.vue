@@ -1,6 +1,7 @@
 <template>
   <header
-    class="fixed top-[44px] left-0 right-0 z-50 mx-auto w-full md:max-w-6xl md:top-[60px] bg-white/95 backdrop-blur-xl border border-neutral-200/60 transition-all duration-300 ease-smooth rounded-2xl shadow-lg hover:shadow-xl navbar-container"
+    class="fixed left-0 right-0 z-50 mx-auto w-full md:max-w-6xl bg-white/95 backdrop-blur-xl border border-neutral-200/60 transition-all duration-300 ease-smooth rounded-2xl shadow-lg hover:shadow-xl navbar-container"
+    :class="isBannerVisible ? 'top-[44px] md:top-[60px]' : 'top-0 md:top-4'"
     data-navbar>
     <div
       class="flex items-center justify-between px-4 md:px-8 h-16 transition-all duration-300 ease-smooth">
@@ -200,8 +201,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Button } from '@/components/ui';
+import { useTopBanner } from '@/composables/useTopBanner';
 
 const isMobileMenuOpen = ref(false);
+const { isVisible: isBannerVisible } = useTopBanner();
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
