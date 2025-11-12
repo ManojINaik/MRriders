@@ -113,10 +113,10 @@
     
     <!-- Mobile Menu Items -->
     <div class="flex flex-col p-4 gap-1">
-      <a 
-        href="#bikes" 
+      <a
+        href="#bikes"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,15 +124,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Our Bikes</span>
-          <p class="text-xs text-neutral-500">Premium bikes for rent</p>
+          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Our Bikes</span>
+          <p class="text-xs text-neutral-600">Premium bikes for rent</p>
         </div>
       </a>
       
-      <a 
-        href="#taxi" 
+      <a
+        href="#taxi"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,15 +140,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Taxi Services</span>
-          <p class="text-xs text-neutral-500">Reliable taxi rides</p>
+          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Taxi Services</span>
+          <p class="text-xs text-neutral-600">Reliable taxi rides</p>
         </div>
       </a>
       
-      <a 
-        href="#pickup" 
+      <a
+        href="#pickup"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,15 +157,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Pickup Points</span>
-          <p class="text-xs text-neutral-500">Convenient locations</p>
+          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Pickup Points</span>
+          <p class="text-xs text-neutral-600">Convenient locations</p>
         </div>
       </a>
       
-      <a 
-        href="#contact" 
+      <a
+        href="#contact"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,8 +173,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Contact</span>
-          <p class="text-xs text-neutral-500">Get in touch</p>
+          <span class="font-semibold text-sm text-neutral-900 group-hover:text-brand">Contact</span>
+          <p class="text-xs text-neutral-600">Get in touch</p>
         </div>
       </a>
     </div>
