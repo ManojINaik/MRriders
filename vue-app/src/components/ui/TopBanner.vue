@@ -43,14 +43,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useTopBanner } from '@/composables/useTopBanner';
 
-const { isVisible, dismissBanner, checkDismissedState } = useTopBanner();
-
-onMounted(() => {
-  checkDismissedState();
-});
+const { isVisible, dismissBanner } = useTopBanner();
 </script>
 
 <style scoped>
