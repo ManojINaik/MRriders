@@ -10,13 +10,21 @@ import PickupPointsSection from '@/components/sections/PickupPointsSection.vue';
 import ContactSection from '@/components/sections/ContactSection.vue';
 import Footer from '@/components/layout/Footer.vue';
 import { useScrollReveal } from '@/composables/useScrollReveal';
-import { WhatsAppButton } from '@/components/ui';
+import { useTopBanner } from '@/composables/useTopBanner';
+import { WhatsAppButton, TopBanner } from '@/components/ui';
 
 useScrollReveal();
+const { isVisible: isBannerVisible } = useTopBanner();
 </script>
 
 <template>
-  <div class="relative flex min-h-screen flex-col group/design-root">
+  <!-- Top Promotional Banner -->
+  <TopBanner />
+
+  <div
+    class="relative flex min-h-screen flex-col group/design-root transition-all duration-300"
+    :class="isBannerVisible ? 'pt-[116px] md:pt-[120px]' : 'pt-16 md:pt-20'"
+  >
     <div class="layout-container flex flex-col">
       <Header />
       <main class="flex flex-1 flex-col">

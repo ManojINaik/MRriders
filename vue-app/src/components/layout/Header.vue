@@ -1,6 +1,7 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 mx-auto w-full md:max-w-6xl md:top-4 bg-white/95 backdrop-blur-xl border border-neutral-200/60 transition-all duration-300 ease-smooth rounded-2xl shadow-lg hover:shadow-xl navbar-container"
+    class="fixed left-0 right-0 z-50 mx-auto w-full md:max-w-6xl bg-white/95 backdrop-blur-xl border border-neutral-200/60 transition-all duration-300 ease-smooth rounded-2xl shadow-lg hover:shadow-xl navbar-container"
+    :class="isBannerVisible ? 'top-[52px] md:top-[56px]' : 'top-0 md:top-4'"
     data-navbar>
     <div
       class="flex items-center justify-between px-4 md:px-8 h-16 transition-all duration-300 ease-smooth">
@@ -85,9 +86,12 @@
   ></div>
 
   <!-- Mobile Menu -->
-  <nav 
-    class="mobile-menu fixed top-0 left-0 h-full w-80 max-w-[85%] bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-50 transform transition-transform duration-300 ease-smooth"
-    :class="{ '-translate-x-full': !isMobileMenuOpen, 'translate-x-0': isMobileMenuOpen }"
+  <nav
+    class="mobile-menu fixed left-0 w-80 max-w-[85%] bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-[70] transform transition-transform duration-300 ease-smooth"
+    :class="[
+      { '-translate-x-full': !isMobileMenuOpen, 'translate-x-0': isMobileMenuOpen },
+      isBannerVisible ? 'top-[48px] h-[calc(100vh-48px)]' : 'top-0 h-full'
+    ]"
   >
     <!-- Mobile Menu Header -->
     <div class="flex items-center justify-between p-6 border-b border-neutral-200/60 bg-gradient-to-r from-white to-neutral-50/50">
@@ -113,10 +117,10 @@
     
     <!-- Mobile Menu Items -->
     <div class="flex flex-col p-4 gap-1">
-      <a 
-        href="#bikes" 
+      <a
+        href="#bikes"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,15 +128,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Our Bikes</span>
-          <p class="text-xs text-neutral-500">Premium bikes for rent</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Our Bikes</span>
+          <p class="text-xs !text-neutral-600">Premium bikes for rent</p>
         </div>
       </a>
       
-      <a 
-        href="#taxi" 
+      <a
+        href="#taxi"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,15 +144,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Taxi Services</span>
-          <p class="text-xs text-neutral-500">Reliable taxi rides</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Taxi Services</span>
+          <p class="text-xs !text-neutral-600">Reliable taxi rides</p>
         </div>
       </a>
       
-      <a 
-        href="#pickup" 
+      <a
+        href="#pickup"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -157,15 +161,15 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Pickup Points</span>
-          <p class="text-xs text-neutral-500">Convenient locations</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Pickup Points</span>
+          <p class="text-xs !text-neutral-600">Convenient locations</p>
         </div>
       </a>
       
-      <a 
-        href="#contact" 
+      <a
+        href="#contact"
         @click="closeMobileMenu"
-        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 text-neutral-700 hover:text-brand hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
       >
         <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
           <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,8 +177,8 @@
           </svg>
         </div>
         <div>
-          <span class="font-semibold text-sm">Contact</span>
-          <p class="text-xs text-neutral-500">Get in touch</p>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Contact</span>
+          <p class="text-xs !text-neutral-600">Get in touch</p>
         </div>
       </a>
     </div>
@@ -200,8 +204,10 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Button } from '@/components/ui';
+import { useTopBanner } from '@/composables/useTopBanner';
 
 const isMobileMenuOpen = ref(false);
+const { isVisible: isBannerVisible } = useTopBanner();
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
