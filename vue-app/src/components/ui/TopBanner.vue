@@ -3,17 +3,17 @@
     v-if="isVisible"
     class="top-banner fixed top-0 left-0 right-0 z-[60] bg-gradient-to-r from-red-600 via-red-500 to-rose-600 text-white shadow-xl border-b-2 border-red-700/50"
   >
-    <div class="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-4 py-1.5 md:py-2.5 flex items-center justify-between gap-4">
       <!-- Banner Content -->
       <div class="flex-1 flex items-center justify-center gap-2 text-center">
         <svg class="w-5 h-5 text-yellow-300 hidden sm:block flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
           <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
         </svg>
-        <p class="text-sm md:text-base font-semibold tracking-wide">
+        <p class="text-xs md:text-base font-semibold tracking-wide leading-tight">
           <span class="hidden sm:inline">🏨 </span>
-          <span class="font-bold text-yellow-200">For Rooms & Restaurant Bookings</span>
+          <span class="font-bold text-yellow-200 block sm:inline">For Rooms & Restaurant Bookings</span>
           <span class="hidden sm:inline mx-2">•</span>
-          <span class="sm:inline block mt-1 sm:mt-0">Visit </span>
+          <span class="inline">Visit </span>
           <a
             href="https://murudeshwar.co.in"
             target="_blank"
