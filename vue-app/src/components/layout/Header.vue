@@ -4,7 +4,7 @@
     :class="isBannerVisible ? 'top-[60px] md:top-[56px]' : 'top-0 md:top-4'"
     data-navbar>
     <div
-      class="flex items-center justify-between px-4 md:px-8 h-16 transition-all duration-300 ease-smooth">
+      class="flex items-center justify-between px-4 md:px-5 lg:px-8 h-16 transition-all duration-300 ease-smooth">
       
       <!-- Mobile Menu Button -->
       <button 
@@ -38,25 +38,31 @@
       <nav class="hidden md:flex items-center gap-1">
         <a 
           href="#bikes"
-          class="nav-link px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
+          class="nav-link px-2.5 lg:px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
         >
           Our Bikes
         </a>
         <a 
           href="#taxi"
-          class="nav-link px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
+          class="nav-link px-2.5 lg:px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
         >
           Taxi Services
         </a>
+        <a
+          href="#rooms"
+          class="nav-link px-2.5 lg:px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
+        >
+          Rooms
+        </a>
         <a 
           href="#pickup"
-          class="nav-link px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
+          class="nav-link px-2.5 lg:px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
         >
           Pickup Points
         </a>
         <a 
           href="#contact"
-          class="nav-link px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
+          class="nav-link px-2.5 lg:px-4 py-2 text-sm font-medium text-neutral-700 hover:text-brand hover:bg-neutral-50 rounded-lg transition-all duration-200"
         >
           Contact
         </a>
@@ -87,7 +93,8 @@
 
   <!-- Mobile Menu -->
   <nav
-    class="mobile-menu fixed left-0 w-80 max-w-[85%] bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-[70] transform transition-transform duration-300 ease-smooth"
+    class="mobile-menu fixed left-0 w-80 max-w-[85%] overflow-y-auto bg-white/95 backdrop-blur-xl border-r border-neutral-200/60 shadow-2xl z-[70] transform transition-transform duration-300 ease-smooth md:hidden"
+    :inert="!isMobileMenuOpen"
     :class="[
       { '-translate-x-full': !isMobileMenuOpen, 'translate-x-0': isMobileMenuOpen },
       isBannerVisible ? 'top-[60px] h-[calc(100vh-60px)]' : 'top-0 h-full'
@@ -148,6 +155,20 @@
           <p class="text-xs !text-neutral-600">Reliable taxi rides</p>
         </div>
       </a>
+
+      <a
+        href="#rooms"
+        @click="closeMobileMenu"
+        class="mobile-nav-item flex items-center gap-3 px-4 py-3.5 hover:bg-neutral-50/80 rounded-xl transition-all duration-200 hover:shadow-sm group"
+      >
+        <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand/10 to-brand/5 rounded-lg group-hover:from-brand/20 group-hover:to-brand/10 transition-all duration-200">
+          <BedDouble class="w-5 h-5 text-brand" aria-hidden="true" />
+        </div>
+        <div>
+          <span class="font-semibold text-sm !text-neutral-900 group-hover:!text-brand">Rooms</span>
+          <p class="text-xs !text-neutral-600">Sunset Beach Home Stay</p>
+        </div>
+      </a>
       
       <a
         href="#pickup"
@@ -202,6 +223,7 @@
 </template>
 
 <script setup lang="ts">
+import { BedDouble } from 'lucide-vue-next';
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Button } from '@/components/ui';
 import { useTopBanner } from '@/composables/useTopBanner';
@@ -305,6 +327,7 @@ onUnmounted(() => {
 .mobile-nav-item:nth-child(2) { animation-delay: 0.2s; }
 .mobile-nav-item:nth-child(3) { animation-delay: 0.3s; }
 .mobile-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.mobile-nav-item:nth-child(5) { animation-delay: 0.5s; }
 
 @keyframes slideInLeft {
   to {
@@ -329,6 +352,11 @@ html {
   
   .mobile-menu {
     transition: none;
+  }
+
+  .mobile-nav-item {
+    opacity: 1;
+    transform: none;
   }
 }
 </style>

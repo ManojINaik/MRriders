@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header.vue';
 import HeroSection from '@/components/sections/HeroSection.vue';
 import BikesSection from '@/components/sections/BikesSection.vue';
 import TaxiSection from '@/components/sections/TaxiSection.vue';
+import RoomsSection from '@/components/sections/RoomsSection.vue';
 import TermsSection from '@/components/sections/TermsSection.vue';
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue';
 import LocationSection from '@/components/sections/LocationSection.vue';
@@ -31,6 +32,7 @@ const { isVisible: isBannerVisible } = useTopBanner();
         <HeroSection />
         <BikesSection />
         <TaxiSection />
+        <RoomsSection />
         <TermsSection />
         <TestimonialsSection />
         <LocationSection />

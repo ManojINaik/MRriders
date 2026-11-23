@@ -20,7 +20,7 @@
           <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
           <div class="relative bg-white rounded-3xl shadow-lg overflow-hidden">
             <div class="aspect-[4/3] w-full">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3847.8234567890123!2d74.5050743!3d14.0958236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc414f521a9695%3A0x7576dce8524008fe!2sMr%20Riders%20Bike%20Rentals%20and%20Taxi%20Service!5e0!3m2!1sen!2sin!4v1642345678901!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3xl"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3847.8234567890123!2d74.5050743!3d14.0958236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbc414f521a9695%3A0x7576dce8524008fe!2sMr%20Riders%20Bike%20Rentals%20and%20Taxi%20Service!5e0!3m2!1sen!2sin!4v1642345678901!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" :allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-3xl"></iframe>
             </div>
             <div class="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
               <div class="flex items-center gap-3">

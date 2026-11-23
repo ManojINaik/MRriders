@@ -11,16 +11,20 @@
         </svg>
         <p class="text-xs md:text-base font-semibold tracking-wide leading-tight">
           <span class="hidden sm:inline">🏨 </span>
-          <span class="font-bold text-yellow-200 block sm:inline">For Rooms & Restaurant Bookings</span>
+          <a
+            href="#rooms"
+            class="block font-bold text-yellow-200 underline decoration-2 underline-offset-2 hover:text-yellow-100 sm:inline"
+          >
+            Book an AC room
+          </a>
           <span class="hidden sm:inline mx-2">•</span>
-          <span class="inline">Visit </span>
           <a
             href="https://murudeshwar.co.in"
             target="_blank"
             rel="noopener noreferrer"
             class="font-bold text-yellow-300 hover:text-yellow-100 underline decoration-2 underline-offset-2 transition-colors duration-200 ml-1"
           >
-            murudeshwar.co.in
+            Restaurant bookings
           </a>
         </p>
         <svg class="w-5 h-5 text-yellow-300 hidden sm:block flex-shrink-0 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
@@ -67,6 +71,7 @@ const { isVisible, dismissBanner } = useTopBanner();
 /* Add a subtle shimmer effect */
 .top-banner::before {
   content: '';
+  pointer-events: none;
   position: absolute;
   top: 0;
   left: -100%;

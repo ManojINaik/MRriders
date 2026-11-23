@@ -42,7 +42,7 @@ const bikes = ref([
     rating: 4.9,
     description: "Stylish Honda Dio in vibrant red - perfect for exploring Murdeshwar's temples and beaches. Comfortable, reliable, and ready for your coastal adventures.",
     features: ['110cc Engine', 'Stylish Design', 'Fuel Efficient'],
-    price: 500,
+    price: 399,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Honda%20Dio%20Red',
   },
   {
@@ -53,7 +53,7 @@ const bikes = ref([
     rating: 4.8,
     description: 'Reliable Honda Activa in sleek black - perfect for comfortable city rides and temple visits. Trusted by thousands with excellent fuel efficiency.',
     features: ['125cc Engine', 'Fuel Efficient', 'Easy Ride'],
-    price: 500,
+    price: 399,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Honda%20Activa%20Black',
   },
   {
@@ -64,7 +64,7 @@ const bikes = ref([
     rating: 4.7,
     description: 'A comfortable and reliable scooter, perfect for navigating the streets of Murdeshwar with ease. (24 hours)',
     features: ['125cc Engine', 'Great Mileage', 'Smooth Ride'],
-    price: 650,
+    price: 600,
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Suzuki%20Access%20125',
   },
   {
@@ -101,4 +101,4 @@ const bikes = ref([
     bookingUrl: 'https://wa.me/+919972544847?text=Hi%20Mr%20Riders%2C%20I%20want%20to%20book%20Hero%20Xtream%20125R',
   },
 ]);
-</script> 
+</script>
